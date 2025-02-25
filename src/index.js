@@ -1,6 +1,6 @@
 const express = require('express');
-const{PORT} = require('./config');
-
+//const{PORT} = require('./config');
+const PORT = 3001;
 const apiRoutes = require('./routes');
 
 const app = express();
