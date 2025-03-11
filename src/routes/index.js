@@ -4,7 +4,7 @@ const router = express.Router();
 
 
 router.get('/', (req, res) => {
-    res.json({ message: 'this is v1 rout' });
+    res.json({ message: 'this is api router' });
 });
 
 router.use('/v1', v1routes);

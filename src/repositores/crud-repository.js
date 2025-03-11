@@ -1,4 +1,4 @@
-const{Logger} = require(' ../config');
+//const{Logger} = require(' ../config');
 class Crudrepository
 {
     constructor(model) {
@@ -10,7 +10,8 @@ class Crudrepository
             const response = await this.model.create(data);
             return response;
         } catch (error) {
-            Logger.error('Something went wrong in crud repo : "create"');
+            console.log("not created from crudrepository")
+            //Logger.error('Something went wrong in crud repo : "create"');
             throw error;
         }
     }
@@ -23,7 +24,7 @@ class Crudrepository
             });
             return response;
         } catch (error) {
-            Logger.error('Something went wrong in crud repo : "destroy"');
+            //Logger.error('Something went wrong in crud repo : "destroy"');
             throw error;
         }
     }
@@ -32,11 +33,11 @@ class Crudrepository
             const response = await this.model.findAll();
             return response;
         } catch (error) {
-            Logger.error('Something went wrong in crud repo : "get"');
+            //Logger.error('Something went wrong in crud repo : "get"');
             throw error;
         }
     }
-    async update(id, data){
+    async update(id, data){ // data-> {col :value,...}
         try {
             const response = await this.model.update(data ,{
                 where:{
@@ -45,9 +46,11 @@ class Crudrepository
             });
             return response;
         } catch (error) {
-            Logger.error('Something went wrong in crud repo : "update"');
+           // Logger.error('Something went wrong in crud repo : "update"');
             throw error;
         }
     }
 
 }
+
+module.exports = Crudrepository;
