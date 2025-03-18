@@ -15,10 +15,62 @@ async function createAirplane (req ,res){
     );
         SuccessResponse.data = airplane;
         return res.json(SuccessResponse);
-       
-       
 
-    
+    } catch (error) {
+        ErrorResponse.error = error;
+        return res
+        .status(error.statusCode)
+         .json(ErrorResponse);
+
+    }
+}
+
+async function getAirplanes (req,res){
+    try {
+        //console.log(req.body);
+        const airplane = await AirplaneService.getAirplanes();
+        SuccessResponse.data = airplane;
+        return res
+        .json(SuccessResponse)
+        .status(StatusCodes.OK)
+
+    } catch (error) {
+        ErrorResponse.error = error;
+        return res
+        .status(error.statusCode)
+         .json(ErrorResponse);
+
+    }
+}
+//post: /airplanes/:id
+async function getAirplane (req,res){
+    try {
+        //console.log(req.body);
+        const airplane = await AirplaneService.getAirplane(req.params.id);
+        SuccessResponse.data = airplane;
+        return res
+        .json(SuccessResponse)
+        .status(StatusCodes.OK)
+
+    } catch (error) {
+        ErrorResponse.error = error;
+        return res
+        .status(error.statusCode)
+         .json(ErrorResponse);
+
+    }
+}
+//DELETE: /airplanes/:id
+async function destroyAirplane (req,res){
+    try {
+        //console.log(req.body);
+        const airplane = await AirplaneService.destroyAirplane(req.params.id);
+        SuccessResponse.data = airplane;
+        return res
+        .status(StatusCodes.OK)
+        .json(SuccessResponse)
+        
+
     } catch (error) {
         ErrorResponse.error = error;
         return res
@@ -28,5 +80,8 @@ async function createAirplane (req ,res){
     }
 }
 module.exports ={
-    createAirplane
+    createAirplane,
+    getAirplanes,
+    getAirplane,
+    destroyAirplane
 }

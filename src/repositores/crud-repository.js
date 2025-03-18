@@ -1,3 +1,6 @@
+const { StatusCodes } = require("http-status-codes");
+const AppError = require("../utils/errors/app.error");
+
 //const{Logger} = require(' ../config');
 class Crudrepository
 {
@@ -6,50 +9,46 @@ class Crudrepository
     }
 
     async create(data){
-        try {
+        
             const response = await this.model.create(data);
             return response;
-        } catch (error) {
-            console.log("not created from crudrepository")
-            //Logger.error('Something went wrong in crud repo : "create"');
-            throw error;
-        }
     }
+       
     async destroy(data){
-        try {
+       
             const response = await this.model.destroy({
                 where:{
                     id: data
                 }
             });
-            return response;
-        } catch (error) {
-            //Logger.error('Something went wrong in crud repo : "destroy"');
-            throw error;
+            if(!response){
+                throw new AppError('not able to find  delete the resources',StatusCodes.NOT_FOUND)
+            }
+             return response;
         }
-    }
-    async get(data){
-        try {
+     async get(data){
+        
+            const response = await this.model.findByPk(data);
+            if(!response){
+                throw new AppError('not able to find the resources',StatusCodes.NOT_FOUND)
+            }
+            return response;
+        }     
+    async getAll(){
+        
             const response = await this.model.findAll();
             return response;
-        } catch (error) {
-            //Logger.error('Something went wrong in crud repo : "get"');
-            throw error;
-        }
-    }
+        } 
     async update(id, data){ // data-> {col :value,...}
-        try {
+       
             const response = await this.model.update(data ,{
                 where:{
                     id: id
                 }
             });
             return response;
-        } catch (error) {
-           // Logger.error('Something went wrong in crud repo : "update"');
-            throw error;
-        }
-    }
+        } 
+    
 
 }
 
