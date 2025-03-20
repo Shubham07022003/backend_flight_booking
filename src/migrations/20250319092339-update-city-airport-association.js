@@ -5,19 +5,20 @@ const { Model } = require('sequelize');
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-   await queryInterface.addConstraint('Airports', 'cityId', {
-    type: 'foriegn key',
+   await queryInterface.addConstraint('Airports',  {
+    type: 'FOREIGN KEY',
+    name: 'city_fkey_constraint',
+    fields: ['cityId'],
     references: {
-      Model: 'Cities',
-      key: 'id'
+      table: 'Cities',
+      field: 'id'
     },
-    onUpdate: 'CASSCADE',
+    //onUpdate: 'CASCADE',
     onDelete: 'CASCADE'
    })
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.removeConstraint()
-   
+    await queryInterface.removeConstraint('Airports','city_fkey_constraint');
   }
 };
