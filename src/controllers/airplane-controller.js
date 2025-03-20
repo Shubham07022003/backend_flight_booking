@@ -79,9 +79,30 @@ async function destroyAirplane (req,res){
 
     }
 }
+// PATCH: /airplane
+async function updateAirplane (req ,res){
+    try {
+        //console.log(req.body);
+        const airplane = await AirplaneService.updateAirplane(
+            {capacity: req.body.capacity},
+            req.params.id
+    );
+        SuccessResponse.data = airplane;
+        return res
+        .json(SuccessResponse);
+
+    } catch (error) {
+        ErrorResponse.error = error;
+        return res
+        .status(error.statusCode)
+         .json(ErrorResponse);
+
+    }
+}
 module.exports ={
     createAirplane,
     getAirplanes,
     getAirplane,
-    destroyAirplane
+    destroyAirplane,
+    updateAirplane
 }

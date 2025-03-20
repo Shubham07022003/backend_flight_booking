@@ -53,9 +53,31 @@ async function destroyAirplane(id){
     }
 }
 
+async function updateAirplane( data,id){
+    try{
+        const airplane = await airplaneRepository.update(data, id);
+        return airplane ;
+
+    }catch(error){
+         console.log (error)
+        // if(error.name == 'SequelizeValidationError' ){
+        //     let explanation =[];
+        //     error.errors.forEach((err) => {
+        //         explanation.push(err.message);
+        //     });
+        //     console.log(explanation);
+        //     throw new AppError(explanation, StatusCodes.BAD_REQUEST)
+        // }
+        //throw error;
+        throw new AppError('cannot   update Airplane object', StatusCodes.NOT_FOUND)
+        //console.log(error)
+    }
+}
+
 module.exports = {
     createAirplane,
     getAirplanes,
     getAirplane,
-    destroyAirplane
+    destroyAirplane,
+    updateAirplane 
 }

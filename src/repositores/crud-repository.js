@@ -39,13 +39,21 @@ class Crudrepository
             const response = await this.model.findAll();
             return response;
         } 
-    async update(id, data){ // data-> {col :value,...}
+    async update(data, id){ // data-> {col :value,...}
        
             const response = await this.model.update(data ,{
                 where:{
                     id: id
-                }
+                },
+                returning: true
             });
+            if(response[0] === 0) {
+                throw new AppError('Resource not found', StatusCodes.NOT_FOUND);
+            }
+            const updatedRecord =  this.get(id)
+            return updatedRecord;
+           
+    
             return response;
         } 
     
