@@ -8,8 +8,8 @@ router.post('/',
     FlightMiddlewares.validateCreateRequest,
     FlightController.createFlight);
   // /api/v1/airplane GET  
-// router.get('/',
-//     FlightController.getAirports);
+router.get('/',
+    FlightController.getFlights);
 //   // /api/v1/airplane/:id get
 
 // router.get('/:id',
