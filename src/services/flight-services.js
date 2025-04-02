@@ -57,15 +57,16 @@ async function getFlights(query){
             [Op.gte]:[query.tripDate, query.tripDate + endingTripTime]
         }
     }
-    if(query.short){
-        const param = query.short.split(",");
+    if(query.sort){
+        const param = query.sort.split(",");
         const sortFilters = param.map(param => param.split("_"));
         sortFilter = sortFilters ;
     }   
     try {
-        const flights = await flightRepository.getFlights(customFilter);
+        const flights = await flightRepository.getFlights(customFilter, sortFilter);
         return flights;
     } catch (error) {
+        console.log(error);
         throw new AppError('can not fetch data of all the flight object', StatusCodes.INTERNAL_SERVER_ERROR)
 
     }
