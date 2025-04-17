@@ -1,6 +1,6 @@
 const express = require('express');
 //const{PORT} = require('./config');
-const PORT = 4051;
+const PORT = 4000;
 const apiRoutes = require('./routes');
 
 const app = express();
